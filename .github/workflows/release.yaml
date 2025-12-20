@@ -462,13 +462,11 @@ jobs:
         id: create_nintendo_3ds_cia
         shell: bash
         run: |
+          progname='${{ steps.get_names.outputs.progname }}'
+          procname=`echo "$progname" | head -c 8`
           pushd src/
-          prog='${{ steps.store_config.outputs.prog }}'
-          procname=`echo "$prog" | head -c 8`
-          test -e "$prog".3dsx
           cxitool --name "$procname" --code=CTR-P-ANGBAND --tid=000400000616E600 "$progname".3dsx "$progname".cxi
           makerom -v -f cia -o "$prog".cia -target t -i "$prog".cxi:0:0 -ignoresign -icon icon.smdh
-          test -e "$prog".cia
           popd
 
       - name: Create Nintendo 3DS Archive
