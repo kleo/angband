@@ -463,19 +463,10 @@ jobs:
         shell: bash
         run: |
           progname='${{ steps.store_config.outputs.prog }}'
-          echo progname $progname
           procname=`echo "$progname" | head -c 8`
-          echo procname $procname
-          pwd
           pushd src/
-          pwd
-          ls -lah
           cxitool --name=angband --code=CTR-P-ANGBAND --tid=000400000616E600 angband.3dsx angband.cxi
-          ls -lah
-          pwd
           makerom -v -f cia -o angband.cia -target t -i angband.cxi:0:0 -ignoresign -icon icon.smdh
-          ls -la
-          pwd
           popd
 
       - name: Create Nintendo 3DS Archive
