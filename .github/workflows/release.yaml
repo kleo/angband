@@ -503,7 +503,7 @@ jobs:
     needs: [setup, docconvert]
     name: Nintendo DS
     runs-on: ubuntu-latest
-    container: devkitpro/devkitarm
+    container: skylyrac/blocksds:slim-latest
     steps:
       - name: Download Artifact with Configuration Information
         uses: actions/download-artifact@v4
