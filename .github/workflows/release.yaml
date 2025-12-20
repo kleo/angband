@@ -470,7 +470,7 @@ jobs:
           pushd src/
           pwd
           ls -lah
-          cxitool --name angband --code=CTR-P-ANGBAND --tid=000400000616E600 angband.3dsx angband.cxi
+          cxitool --name=angband --code=CTR-P-ANGBAND --tid=000400000616E600 angband.3dsx angband.cxi
           ls -lah
           pwd
           makerom -v -f cia -o "$prog".cia -target t -i "$prog".cxi:0:0 -ignoresign -icon icon.smdh
