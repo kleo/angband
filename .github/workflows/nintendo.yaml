@@ -3,7 +3,7 @@ name: Nintendo DS
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
 
 jobs:
@@ -18,8 +18,8 @@ jobs:
       - name: Extract Names from Makefile
         id: get_names
         run: |
-            progname=`sed -E -n -e 's/^[[:blank:]]*PROGNAME[[:blank:]]+=[[:blank:]]+//p' src/Makefile.src || tr ' #' '\t\t' | tail -1 | cut -f 1`
-            echo "progname=$progname" >> $GITHUB_OUTPUT
+          progname=`sed -E -n -e 's/^[[:blank:]]*PROGNAME[[:blank:]]+=[[:blank:]]+//p' src/Makefile.src || tr ' #' '\t\t' | tail -1 | cut -f 1`
+          echo "progname=$progname" >> $GITHUB_OUTPUT
 
       - name: Build Nintendo 3DS (3dsx)
         shell: bash
@@ -39,7 +39,7 @@ jobs:
           make install
           popd
 
-      - name: Setup makerom 
+      - name: Setup makerom
         shell: bash
         run: |
           apt-get update && apt-get install -y build-essential libmbedtls-dev liblzma-dev libyaml-dev
@@ -60,7 +60,7 @@ jobs:
           progname='${{ steps.get_names.outputs.progname }}'
           procname=`echo "$progname" | head -c 8`
           pushd src/
-          cxitool --name "$procname" "$progname".3dsx "$progname".cxi
+          cxitool --name "$procname" --code=CTR-P-ANGBAND --tid=000400000616E600 "$progname".3dsx "$progname".cxi
           makerom -v -f cia -o $"progname".cia -target t -i "$progname".cxi:0:0 -ignoresign -icon src/nds/icon.smdh
           popd
 
