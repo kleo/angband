@@ -538,6 +538,7 @@ jobs:
         id: create_nintendo_ds_archive
         shell: bash
         run: |
+          apt-get update && apt-get install -y zip
           pushd src/
           make -f Makefile.blocksds -j$(nproc)
           popd
